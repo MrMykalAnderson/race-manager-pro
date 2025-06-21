@@ -1,0 +1,93 @@
+{
+  "name": "Indianapolis Motor Speedway (Oval)",
+  "segments": [
+    {
+      "type": "straight",
+      "start": [250, 400],
+      "end": [250, -400],
+      "meta": {
+        "surface": "asphalt",
+        "curb": "none",
+        "section": "front straight"
+      }
+    },
+    {
+      "type": "corner",
+      "center": [0, -400],
+      "radius": 250,
+      "start_angle": 270,
+      "end_angle": 0,
+      "meta": {
+        "surface": "asphalt",
+        "curb": "painted",
+        "section": "turn 1"
+      }
+    },
+    {
+      "type": "straight",
+      "start": [0, -650],
+      "end": [-500, -650],
+      "meta": {
+        "surface": "asphalt",
+        "curb": "none",
+        "section": "back straight"
+      }
+    },
+    {
+      "type": "corner",
+      "center": [-500, -400],
+      "radius": 250,
+      "start_angle": 180,
+      "end_angle": 270,
+      "meta": {
+        "surface": "asphalt",
+        "curb": "painted",
+        "section": "turn 2"
+      }
+    },
+    {
+      "type": "straight",
+      "start": [-750, -400],
+      "end": [-750, 400],
+      "meta": {
+        "surface": "asphalt",
+        "curb": "none",
+        "section": "short chute"
+      }
+    },
+    {
+      "type": "corner",
+      "center": [-500, 400],
+      "radius": 250,
+      "start_angle": 90,
+      "end_angle": 180,
+      "meta": {
+        "surface": "asphalt",
+        "curb": "painted",
+        "section": "turn 3"
+      }
+    },
+    {
+      "type": "straight",
+      "start": [-500, 650],
+      "end": [0, 650],
+      "meta": {
+        "surface": "asphalt",
+        "curb": "none",
+        "section": "north straight"
+      }
+    },
+    {
+      "type": "corner",
+      "center": [0, 400],
+      "radius": 250,
+      "start_angle": 0,
+      "end_angle": 90,
+      "meta": {
+        "surface": "asphalt",
+        "curb": "painted",
+        "section": "turn 4"
+      }
+    }
+  ]
+}
