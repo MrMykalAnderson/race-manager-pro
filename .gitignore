@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual Envs
+.venv/
+
+# VSCode
+.vscode/
+
+# Logs and temp
+*.log
+*.tmp
+
+# OS junk
+.DS_Store
+Thumbs.db
