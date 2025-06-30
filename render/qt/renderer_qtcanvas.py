@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import QPainter, QPainterPath, QPen
 from PySide6.QtCore import Qt, Signal, QPointF
-from PySide6.QtWidgets import QFileDialog, QGraphicsPixmapItem
+from PySide6.QtWidgets import QFileDialog, QGraphicsPixmapItem, QApplication
 from PySide6.QtGui import QPixmap
 from PySide6.QtGui import QAction
 
@@ -115,6 +115,10 @@ def run_track_editor():
 
     if owns_app:
         sys.exit(app.exec())
+
+
+def create_track_editor_window():
+    return TrackEditorWindow()
         
 if __name__ == '__main__':
     main()
