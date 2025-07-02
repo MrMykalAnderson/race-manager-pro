@@ -6,6 +6,7 @@ from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QAction
 
 from ui.views.default_view import DefaultView
+from ui.widgets.registry import WIDGET_REGISTRY
 
 
 class BaseWindow(QMainWindow):
@@ -61,6 +62,26 @@ class BaseWindow(QMainWindow):
 
         menu = QMenu(button)
 
+        # Modular UI: Add Panel/Widget actions in edit mode, before Views submenu
+        if self.edit_mode:
+            add_panel_v_action = QAction("Add Panel (Vertical)", button)
+            add_panel_v_action.triggered.connect(lambda: self._add_panel_to_current_view("vertical"))
+            menu.addAction(add_panel_v_action)
+
+            add_panel_h_action = QAction("Add Panel (Horizontal)", button)
+            add_panel_h_action.triggered.connect(lambda: self._add_panel_to_current_view("horizontal"))
+            menu.addAction(add_panel_h_action)
+
+            # Add Widget submenu for all registered widgets
+            add_widget_menu = QMenu("Add Widget", button)
+            for widget_name, widget_cls in WIDGET_REGISTRY.items():
+                action = QAction(widget_name, button)
+                action.triggered.connect(lambda checked, cls=widget_cls: self._add_widget_to_current_view(cls))
+                add_widget_menu.addAction(action)
+            menu.addMenu(add_widget_menu)
+
+            menu.addSeparator()
+
         # Views submenu
         views_menu = QMenu("Views", button)
         new_view_action = QAction("New", button)
@@ -99,6 +120,8 @@ class BaseWindow(QMainWindow):
         current_widget = self.tab_widget.currentWidget()
         if hasattr(current_widget, "set_edit_mode"):
             current_widget.set_edit_mode(self.edit_mode)
+        # Update the tab dropdown menu to reflect new edit mode state
+        self.add_dropdown_to_active_tab(self.tab_widget.currentIndex())
 
     def create_new_blank_view(self):
         from ui.views.blank_view import BlankView
@@ -132,3 +155,17 @@ class BaseWindow(QMainWindow):
         self.tab_widget.removeTab(current_index)
         self.tab_widget.insertTab(current_index, new_widget, "Default View")
         self.tab_widget.setCurrentIndex(current_index)
+
+    def _add_panel_to_current_view(self, orientation):
+        current_widget = self.tab_widget.currentWidget()
+        if hasattr(current_widget, "add_container"):
+            current_widget.add_container(orientation=orientation)
+
+    def _add_widget_to_current_view(self, widget_cls=None):
+        current_widget = self.tab_widget.currentWidget()
+        if widget_cls is None:
+            # fallback for old calls, use DocViewerWidget
+            from ui.widgets.doc_viewer_widget import DocViewerWidget
+            widget_cls = DocViewerWidget
+        if hasattr(current_widget, "add_widget"):
+            current_widget.add_widget(widget_cls)

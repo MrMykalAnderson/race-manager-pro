@@ -1,38 +1,37 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout
-from ui.widgets.test_widget import TestWidget
 from ui.widgets.layout_container import LayoutContainer
+import logging
+
+logger = logging.getLogger("BlankView")
 
 
 class BlankView(QWidget):
+    """
+    BlankView is the root view for a tab. It contains a single root LayoutContainer,
+    which manages all dynamic widgets and panels. All additions/removals go through
+    the root container. No floating buttons; all UI actions are handled via the tab menu.
+    """
+
     def __init__(self):
         super().__init__()
-        self.edit_mode = True  # Track current edit mode state
-        layout = QVBoxLayout()
+        logger.debug("[STEP] Creating root LayoutContainer for BlankView")
+        self.root_container = LayoutContainer(orientation="vertical")
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        layout.addWidget(self.root_container)
         self.setLayout(layout)
 
-        # Outer vertical container (entire view)
-        self.outer_container = LayoutContainer(orientation='vertical', edit_mode=self.edit_mode)
+    def add_widget(self, widget_cls):
+        """
+        Add a new widget (e.g., DocViewerWidget) to the root container.
+        """
+        logger.info(f"Adding widget {widget_cls.__name__} to BlankView")
+        self.root_container.add_widget(widget_cls())
 
-        # Full-width widget at the top
-        top_widget = TestWidget(title="Top Widget")
-        self.outer_container.add_child(top_widget)
-
-        # Nested horizontal container (bottom half)
-        inner_container = LayoutContainer(orientation='horizontal', edit_mode=self.edit_mode)
-        inner_container.add_child(TestWidget(title="Left Widget"))
-        inner_container.add_child(TestWidget(title="Right Widget"))
-
-        # Add nested container to outer
-        self.outer_container.add_child(inner_container)
-
-        # Add everything to the main layout
-        layout.addWidget(self.outer_container)
-
-    def set_edit_mode(self, value: bool):
-        self.edit_mode = value
-        if hasattr(self, 'outer_container'):
-            self.outer_container.set_edit_mode(value)
-        # Propagate to all children if needed
-        for child in self.findChildren(QWidget):
-            if hasattr(child, 'set_edit_mode') and child is not self:
-                child.set_edit_mode(value)
+    def add_container(self, orientation="vertical"):
+        """
+        Add a new LayoutContainer to the root container.
+        """
+        logger.info(f"Adding LayoutContainer ({orientation}) to BlankView")
+        self.root_container.add_container(orientation=orientation)

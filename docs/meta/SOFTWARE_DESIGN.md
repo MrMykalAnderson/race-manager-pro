@@ -73,6 +73,24 @@ Race Manager Pro is a desktop application for motorsport data browsing and simul
 - Advanced analytics and strategy tools
 - Cloud sync and multi-user collaboration
 
+## 9. Developer Notes: Views, Widgets, and Best Practices
+
+### How the UI Code Works
+- **Views** (e.g., `BlankView`, `DefaultView`) are top-level containers for user dashboards. Each view is a `QWidget` subclass and is added as a tab in the main window.
+- **Widgets** are modular UI elements (e.g., summary tables, charts, containers) that are added to views or to layout containers within views.
+- **Layout Containers** (e.g., `LayoutContainer`) are special widgets that manage the arrangement of child widgets using Qt layouts or splitters. All dynamic content in a view should be managed through a root container widget.
+- **Edit Mode** is propagated via Qt signals, allowing all widgets and containers to update their UI state (e.g., show/hide controls) in sync.
+
+### Best Practices & Lessons Learned (from segfault debugging)
+- Always use Qt enums (e.g., `Qt.AlignHCenter`) for alignment, not raw integers.
+- Add widgets and layouts incrementally, testing after each change to quickly isolate issues.
+- Avoid custom styling, fixed sizes, or alignment until basic widget logic is confirmed stable.
+- Let Qt handle layout and appearance by default; only add custom styles after confirming stability.
+- When subclassing Qt widgets, always call `super().__init__()` first.
+- If a segfault occurs on basic widget creation, revert to the simplest working version and reintroduce features step by step.
+- Use logging at each step of widget/view construction for easier debugging.
+- Avoid direct manipulation of layouts in views; always use a root container widget for dynamic content.
+
 ---
 
 *This document is a living reference for the software design of Race Manager Pro. Update as the project evolves.*
