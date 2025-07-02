@@ -1,0 +1,237 @@
+{
+  "track": {
+    "name": "Simple Oval",
+    "length_km": 2.0,
+    "laps": 10
+  },
+  "results": [
+    {
+      "position": 1,
+      "driver": {
+        "driver_id": "drv1",
+        "name": "Alice",
+        "skill": 0.95
+      },
+      "car": {
+        "car_id": "car1",
+        "model": "Spec Racer",
+        "power": 300,
+        "weight": 1200
+      },
+      "total_time": 600.1933808326772,
+      "laps": [
+        {
+          "lap": 1,
+          "lap_time": 60.52287327405506
+        },
+        {
+          "lap": 2,
+          "lap_time": 59.600012338877626
+        },
+        {
+          "lap": 3,
+          "lap_time": 59.718009299222764
+        },
+        {
+          "lap": 4,
+          "lap_time": 60.5270082711393
+        },
+        {
+          "lap": 5,
+          "lap_time": 60.035267386292425
+        },
+        {
+          "lap": 6,
+          "lap_time": 59.85037508847802
+        },
+        {
+          "lap": 7,
+          "lap_time": 59.688541223457605
+        },
+        {
+          "lap": 8,
+          "lap_time": 60.198831549675674
+        },
+        {
+          "lap": 9,
+          "lap_time": 60.41726211815837
+        },
+        {
+          "lap": 10,
+          "lap_time": 59.635200283320394
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "driver": {
+        "driver_id": "drv4",
+        "name": "Dana",
+        "skill": 0.88
+      },
+      "car": {
+        "car_id": "car4",
+        "model": "Spec Racer",
+        "power": 300,
+        "weight": 1200
+      },
+      "total_time": 601.7324080898787,
+      "laps": [
+        {
+          "lap": 1,
+          "lap_time": 60.690557153506674
+        },
+        {
+          "lap": 2,
+          "lap_time": 60.02648097055895
+        },
+        {
+          "lap": 3,
+          "lap_time": 60.50828491846244
+        },
+        {
+          "lap": 4,
+          "lap_time": 59.89346094468418
+        },
+        {
+          "lap": 5,
+          "lap_time": 60.13132791611383
+        },
+        {
+          "lap": 6,
+          "lap_time": 59.895392038855064
+        },
+        {
+          "lap": 7,
+          "lap_time": 60.27299286255058
+        },
+        {
+          "lap": 8,
+          "lap_time": 60.31256806961296
+        },
+        {
+          "lap": 9,
+          "lap_time": 60.116316015843616
+        },
+        {
+          "lap": 10,
+          "lap_time": 59.8850271996904
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "driver": {
+        "driver_id": "drv2",
+        "name": "Bob",
+        "skill": 0.92
+      },
+      "car": {
+        "car_id": "car2",
+        "model": "Spec Racer",
+        "power": 300,
+        "weight": 1200
+      },
+      "total_time": 602.2114425902596,
+      "laps": [
+        {
+          "lap": 1,
+          "lap_time": 60.400784398824584
+        },
+        {
+          "lap": 2,
+          "lap_time": 60.26505235563972
+        },
+        {
+          "lap": 3,
+          "lap_time": 60.431513697603435
+        },
+        {
+          "lap": 4,
+          "lap_time": 60.19941804661672
+        },
+        {
+          "lap": 5,
+          "lap_time": 59.798851845179186
+        },
+        {
+          "lap": 6,
+          "lap_time": 60.40277624933704
+        },
+        {
+          "lap": 7,
+          "lap_time": 60.103270350776604
+        },
+        {
+          "lap": 8,
+          "lap_time": 59.88324541557761
+        },
+        {
+          "lap": 9,
+          "lap_time": 60.17793079951074
+        },
+        {
+          "lap": 10,
+          "lap_time": 60.54859943119407
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "driver": {
+        "driver_id": "drv3",
+        "name": "Charlie",
+        "skill": 0.9
+      },
+      "car": {
+        "car_id": "car3",
+        "model": "Spec Racer",
+        "power": 300,
+        "weight": 1200
+      },
+      "total_time": 602.3200133665126,
+      "laps": [
+        {
+          "lap": 1,
+          "lap_time": 60.07616760682948
+        },
+        {
+          "lap": 2,
+          "lap_time": 60.078878222781654
+        },
+        {
+          "lap": 3,
+          "lap_time": 60.52645942398765
+        },
+        {
+          "lap": 4,
+          "lap_time": 60.39567698902089
+        },
+        {
+          "lap": 5,
+          "lap_time": 59.713483563671765
+        },
+        {
+          "lap": 6,
+          "lap_time": 59.81994726559885
+        },
+        {
+          "lap": 7,
+          "lap_time": 60.5957376266674
+        },
+        {
+          "lap": 8,
+          "lap_time": 60.31538962291056
+        },
+        {
+          "lap": 9,
+          "lap_time": 60.13574200295304
+        },
+        {
+          "lap": 10,
+          "lap_time": 60.662531042091295
+        }
+      ]
+    }
+  ]
+}

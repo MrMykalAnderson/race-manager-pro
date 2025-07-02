@@ -1,0 +1,25 @@
+{
+  "track": {
+    "name": "Simple Oval",
+    "length_km": 2.0,
+    "laps": 10
+  },
+  "cars": [
+    {"car_id": "car1", "model": "Spec Racer", "power": 300, "weight": 1200},
+    {"car_id": "car2", "model": "Spec Racer", "power": 300, "weight": 1200},
+    {"car_id": "car3", "model": "Spec Racer", "power": 300, "weight": 1200},
+    {"car_id": "car4", "model": "Spec Racer", "power": 300, "weight": 1200}
+  ],
+  "drivers": [
+    {"driver_id": "drv1", "name": "Alice", "skill": 0.95},
+    {"driver_id": "drv2", "name": "Bob", "skill": 0.92},
+    {"driver_id": "drv3", "name": "Charlie", "skill": 0.90},
+    {"driver_id": "drv4", "name": "Dana", "skill": 0.88}
+  ],
+  "entries": [
+    {"entry_id": "e1", "car_id": "car1", "driver_id": "drv1"},
+    {"entry_id": "e2", "car_id": "car2", "driver_id": "drv2"},
+    {"entry_id": "e3", "car_id": "car3", "driver_id": "drv3"},
+    {"entry_id": "e4", "car_id": "car4", "driver_id": "drv4"}
+  ]
+}
