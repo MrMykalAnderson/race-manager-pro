@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QLabel, QTableWidget, QTableWidgetItem, QHeaderView
-from .base_widget import BaseWidget
+from .base_panel import BasePanel
 import os
 import json
 
-class SessionSummaryWidget(BaseWidget):
+class SessionSummaryPanel(BasePanel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.set_title("Session Summary")
@@ -41,16 +41,15 @@ class SessionSummaryWidget(BaseWidget):
         ])
         self.table.setRowCount(len(results))
         for row, result in enumerate(results):
-            driver = result['driver']['name']
-            car = result['car']['model']
-            laps = len(result['laps'])
-            total_time = f"{result['total_time']:.2f}s"
-            best_lap = f"{min(l['lap_time'] for l in result['laps']):.2f}s"
+            driver = result.get('driver', 'N/A')
+            car = result.get('car', 'N/A')
+            laps = result.get('laps', 0)
+            total_time = result.get('total_time', 'N/A')
+            best_lap = result.get('best_lap', 'N/A')
             self.table.setItem(row, 0, QTableWidgetItem(str(result['position'])))
             self.table.setItem(row, 1, QTableWidgetItem(driver))
             self.table.setItem(row, 2, QTableWidgetItem(car))
             self.table.setItem(row, 3, QTableWidgetItem(str(laps)))
             self.table.setItem(row, 4, QTableWidgetItem(total_time))
             self.table.setItem(row, 5, QTableWidgetItem(best_lap))
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)

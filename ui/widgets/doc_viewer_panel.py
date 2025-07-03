@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QVBoxLayout, QTextEdit
-from .base_widget import BaseWidget
+from .base_panel import BasePanel
 import os
 import markdown
 
-class DocViewerWidget(BaseWidget):
+class DocViewerPanel(BasePanel):
     def __init__(self, md_path=None, parent=None):
         super().__init__(parent)
         self.set_title("User Guide")

@@ -29,6 +29,7 @@
 - [x] DocViewerWidget only displays plain text, not formatted markdown (should support rich markdown rendering in QTextEdit or similar). (Fixed)
 - "Add Panel" always creates vertical panels, regardless of selection; horizontal orientation is ignored.
 - There are more resize handles than expected; investigate QSplitter usage and layout structure.
+- [x] Edit mode controls (split/add buttons) do not appear when toggling edit mode. Investigate propagation and widget visibility issues. (Fixed: set_edit_mode now propagates from BlankView to root LayoutContainer)
 
 ---
 

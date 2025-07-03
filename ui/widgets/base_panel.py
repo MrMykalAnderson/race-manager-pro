@@ -4,8 +4,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import QAction
 from PySide6.QtCore import Qt
-class BaseWidget(QWidget):
-    def __init__(self, title="Untitled Widget", show_title=True):
+class BasePanel(QWidget):
+    def __init__(self, title="Untitled Panel", show_title=True):
         super().__init__()
         self.title = title
         self.show_title = show_title
@@ -38,12 +38,3 @@ class BaseWidget(QWidget):
 
     def set_edit_mode(self, value: bool):
         self.edit_mode = value
-        self.edit_button.setVisible(value)
-
-    def on_edit_clicked(self):
-        print(f"Edit clicked for: {self.title}")
-
-    def set_title(self, title: str):
-        self.title = title
-        if hasattr(self, 'title_label'):
-            self.title_label.setText(title)

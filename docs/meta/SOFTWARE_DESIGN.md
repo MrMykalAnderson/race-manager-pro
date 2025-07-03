@@ -91,6 +91,50 @@ Race Manager Pro is a desktop application for motorsport data browsing and simul
 - Use logging at each step of widget/view construction for easier debugging.
 - Avoid direct manipulation of layouts in views; always use a root container widget for dynamic content.
 
+## 10. Recent Architectural Updates & Lessons Learned (2025-07)
+
+### 10.1 Recursive LayoutContainer System
+- The UI now uses a recursive, splitter-based `LayoutContainer` system for all dynamic/nested layouts.
+- Every view (e.g., `BlankView`) must have a single root `LayoutContainer` that manages all child widgets and containers.
+- Users can add vertical/horizontal splitters and widgets at any container location, supporting highly flexible layouts.
+
+### 10.2 Widget Registry Pattern
+- All available widgets are registered in a central registry (`ui/widgets/registry.py`).
+- The "Add Widget" menu dynamically lists all registered widgets, making the UI extensible without code changes in the core UI.
+
+### 10.3 Edit Mode Controls & Propagation
+- Edit mode overlay controls (split/add buttons) are implemented as a floating widget in each `LayoutContainer`.
+- Edit mode is toggled globally via Qt signals and must be propagated from the view (e.g., `BlankView`) to the root container and all descendants.
+- Always implement a `set_edit_mode` method in views and containers to ensure correct propagation.
+- After toggling edit mode, force a UI update/repaint if controls do not appear as expected.
+
+### 10.4 Debugging & Logging
+- File logging (`race_manager.log`) is enabled for post-mortem debugging and tracking UI state changes. The log file is created in the project root and overwritten on each run.
+- By default, logging is set to `INFO` level for all modules to reduce noise and focus on important UI actions, state changes, and errors. Use `DEBUG` only for deep troubleshooting.
+- Noisy third-party loggers (e.g., `matplotlib`, `qt`, `PySide6`) are set to `WARNING` to keep the log file concise and relevant.
+- You can adjust logging levels for your own modules (e.g., `main`, `LayoutContainer`) in `main.py` for more or less verbosity as needed.
+- Only high-level UI actions (splits, widget adds, deletes, mode toggles), errors, and key state changes are logged by default.
+- Avoid logging excessive geometry, font, or Qt internals unless actively debugging those areas.
+- Add granular debug logging for widget/control creation, edit mode changes, and layout operations only when needed for troubleshooting.
+- Review and prune logging statements regularly to keep logs actionable and maintainable.
+
+### 10.5 Best Practices (2025-07)
+- Always use a root `LayoutContainer` for all dynamic content in a view; never manipulate layouts directly in views.
+- Use Qt enums for alignment and avoid raw integers.
+- Add widgets/layouts incrementally and test after each change.
+- Let Qt handle layout and appearance by default; only add custom styles after confirming stability.
+- When subclassing Qt widgets, always call `super().__init__()` first.
+- If a segfault occurs, revert to the simplest working version and reintroduce features step by step.
+- Use logging at each step of widget/view construction for easier debugging.
+- Propagate edit mode from the view to the root container and all children.
+- After UI state changes, call `update()` or `repaint()` if needed to ensure visibility.
+
+### 10.6 Known Issues & Future Improvements
+- "Add Panel" always creates vertical panels, regardless of selection; horizontal orientation is ignored.
+- There are more resize handles than expected; review QSplitter usage and layout structure.
+- Consider adding more granular debug logging to `LayoutContainer` for widget/control creation and edit mode changes.
+- Refactor and document best practices for dynamic layouts and widget management as the codebase evolves.
+
 ---
 
 *This document is a living reference for the software design of Race Manager Pro. Update as the project evolves.*

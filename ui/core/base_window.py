@@ -5,8 +5,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QAction
 
-from ui.views.default_view import DefaultView
-from ui.widgets.registry import WIDGET_REGISTRY
+from ui.views.default_dashboard import DefaultDashboard
+from ui.widgets.registry import PANEL_REGISTRY
 
 
 class BaseWindow(QMainWindow):
@@ -46,8 +46,8 @@ class BaseWindow(QMainWindow):
             self.edit_mode_changed.connect(widget.set_edit_mode)
             widget.set_edit_mode(start_in_edit_mode)
 
-    def add_default_view(self):
-        self.add_tab(DefaultView(), "Default View", start_in_edit_mode=False)
+    def add_default_dashboard(self):
+        self.add_tab(DefaultDashboard(), "Default Dashboard", start_in_edit_mode=False)
 
     def add_dropdown_to_active_tab(self, index):
         tab_bar = self.tab_widget.tabBar()
@@ -72,20 +72,20 @@ class BaseWindow(QMainWindow):
             add_panel_h_action.triggered.connect(lambda: self._add_panel_to_current_view("horizontal"))
             menu.addAction(add_panel_h_action)
 
-            # Add Widget submenu for all registered widgets
-            add_widget_menu = QMenu("Add Widget", button)
-            for widget_name, widget_cls in WIDGET_REGISTRY.items():
-                action = QAction(widget_name, button)
-                action.triggered.connect(lambda checked, cls=widget_cls: self._add_widget_to_current_view(cls))
-                add_widget_menu.addAction(action)
-            menu.addMenu(add_widget_menu)
+            # Add Panel submenu for all registered panels
+            add_panel_menu = QMenu("Add Panel", button)
+            for panel_name, panel_cls in PANEL_REGISTRY.items():
+                action = QAction(panel_name, button)
+                action.triggered.connect(lambda checked, cls=panel_cls: self._add_panel_to_current_dashboard(cls))
+                add_panel_menu.addAction(action)
+            menu.addMenu(add_panel_menu)
 
             menu.addSeparator()
 
         # Views submenu
         views_menu = QMenu("Views", button)
         new_view_action = QAction("New", button)
-        new_view_action.triggered.connect(self.create_new_blank_view)
+        new_view_action.triggered.connect(self.create_new_blank_dashboard)
         views_menu.addAction(new_view_action)
         save_view_action = QAction("Save", button)
         save_view_action.triggered.connect(self.save_current_view)
@@ -100,7 +100,7 @@ class BaseWindow(QMainWindow):
         switch_view_menu = QMenu("Switch to ...", button)
         # Add Default View as a selectable option
         default_view_action = QAction("Default View", button)
-        default_view_action.triggered.connect(self.switch_current_tab_to_default_view)
+        default_view_action.triggered.connect(self.switch_current_tab_to_default_dashboard)
         switch_view_menu.addAction(default_view_action)
         # Placeholder: populate with saved views in future
         switch_view_menu.addAction(QAction("No saved views", button))
@@ -123,9 +123,9 @@ class BaseWindow(QMainWindow):
         # Update the tab dropdown menu to reflect new edit mode state
         self.add_dropdown_to_active_tab(self.tab_widget.currentIndex())
 
-    def create_new_blank_view(self):
-        from ui.views.blank_view import BlankView
-        self.add_tab(BlankView(), "Blank View", start_in_edit_mode=True)
+    def create_new_blank_dashboard(self):
+        from ui.views.blank_dashboard import BlankDashboard
+        self.add_tab(BlankDashboard(), "Blank Dashboard", start_in_edit_mode=True)
 
     def save_current_view(self):
         print("Save view (not yet implemented)")
@@ -142,11 +142,11 @@ class BaseWindow(QMainWindow):
         if ok and new_title.strip():
             self.tab_widget.setTabText(current_index, new_title.strip())
 
-    def switch_current_tab_to_default_view(self):
+    def switch_current_tab_to_default_dashboard(self):
         current_index = self.tab_widget.currentIndex()
         if current_index < 0:
             return
-        new_widget = DefaultView()
+        new_widget = DefaultDashboard()
         # Connect edit mode signal
         if hasattr(new_widget, "set_edit_mode"):
             self.edit_mode_changed.connect(new_widget.set_edit_mode)
@@ -161,11 +161,11 @@ class BaseWindow(QMainWindow):
         if hasattr(current_widget, "add_container"):
             current_widget.add_container(orientation=orientation)
 
-    def _add_widget_to_current_view(self, widget_cls=None):
+    def _add_panel_to_current_dashboard(self, panel_cls=None):
         current_widget = self.tab_widget.currentWidget()
-        if widget_cls is None:
+        if panel_cls is None:
             # fallback for old calls, use DocViewerWidget
             from ui.widgets.doc_viewer_widget import DocViewerWidget
-            widget_cls = DocViewerWidget
+            panel_cls = DocViewerWidget
         if hasattr(current_widget, "add_widget"):
-            current_widget.add_widget(widget_cls)
+            current_widget.add_widget(panel_cls)
